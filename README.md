@@ -2,7 +2,6 @@
 
 A secure desktop banking application built with **WPF (Windows Presentation Foundation)** and **.NET Framework 4.7.2**. SmartBank simulates core banking operations — login, deposits, withdrawals, transfers, balance checks, and transaction history — for a small set of predefined customer accounts.
 
-**Author:** Mokadi Motsuenyane
 
 ## ✨ Features
 
@@ -100,12 +99,11 @@ The app handles the following situations gracefully, without crashing:
 - ⚠️ Transfers to a non-existent account
 - ⚠️ Unexpected runtime errors
 
-## ✍️ Author
+## ✍🏾 Author
 
 **Mokadi Motsuenyane**
 
-## License
-This is for educational purposes
+
 
 ## 📄 License
 
