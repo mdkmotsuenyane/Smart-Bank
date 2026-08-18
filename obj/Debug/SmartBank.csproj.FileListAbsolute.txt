@@ -1,0 +1,17 @@
+C:\Users\kholo\Downloads\SmartBank (1)\SmartBank\bin\Debug\SmartBank.exe.config
+C:\Users\kholo\Downloads\SmartBank (1)\SmartBank\bin\Debug\SmartBank.exe
+C:\Users\kholo\Downloads\SmartBank (1)\SmartBank\bin\Debug\SmartBank.pdb
+C:\Users\kholo\Downloads\SmartBank (1)\SmartBank\obj\Debug\SmartBank.csproj.AssemblyReference.cache
+C:\Users\kholo\Downloads\SmartBank (1)\SmartBank\obj\Debug\BankingDashboard.g.cs
+C:\Users\kholo\Downloads\SmartBank (1)\SmartBank\obj\Debug\MainWindow.g.cs
+C:\Users\kholo\Downloads\SmartBank (1)\SmartBank\obj\Debug\App.g.cs
+C:\Users\kholo\Downloads\SmartBank (1)\SmartBank\obj\Debug\SmartBank_MarkupCompile.cache
+C:\Users\kholo\Downloads\SmartBank (1)\SmartBank\obj\Debug\SmartBank_MarkupCompile.lref
+C:\Users\kholo\Downloads\SmartBank (1)\SmartBank\obj\Debug\BankingDashboard.baml
+C:\Users\kholo\Downloads\SmartBank (1)\SmartBank\obj\Debug\MainWindow.baml
+C:\Users\kholo\Downloads\SmartBank (1)\SmartBank\obj\Debug\SmartBank.g.resources
+C:\Users\kholo\Downloads\SmartBank (1)\SmartBank\obj\Debug\SmartBank.Properties.Resources.resources
+C:\Users\kholo\Downloads\SmartBank (1)\SmartBank\obj\Debug\SmartBank.csproj.GenerateResource.cache
+C:\Users\kholo\Downloads\SmartBank (1)\SmartBank\obj\Debug\SmartBank.csproj.CoreCompileInputs.cache
+C:\Users\kholo\Downloads\SmartBank (1)\SmartBank\obj\Debug\SmartBank.exe
+C:\Users\kholo\Downloads\SmartBank (1)\SmartBank\obj\Debug\SmartBank.pdb

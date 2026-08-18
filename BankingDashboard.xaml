@@ -1,0 +1,490 @@
+﻿<Window x:Class="SmartBank.BankingDashboard"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SmartBank"
+        mc:Ignorable="d"
+        Title="SmartBank - Banking Dashboard" 
+        Height="700" 
+        Width="1100"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanResize"
+        Background="#F0F4F8">
+
+    <Window.Resources>
+        <!-- Exact Color Palette from Login Page -->
+        <SolidColorBrush x:Key="PrimaryColor" Color="#0E2240"/>
+        <!-- Navy Blue -->
+        <SolidColorBrush x:Key="SecondaryColor" Color="#FDBB30"/>
+        <!-- Gold -->
+        <SolidColorBrush x:Key="AccentColor" Color="#C8102E"/>
+        <!-- Red -->
+        <SolidColorBrush x:Key="LightGold" Color="#FFE58F"/>
+        <!-- Light Gold -->
+        <SolidColorBrush x:Key="DarkColor" Color="#0A1628"/>
+        <!-- Dark Navy -->
+        <SolidColorBrush x:Key="TextLight" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="TextMuted" Color="#5F6368"/>
+        <SolidColorBrush x:Key="CardBackground" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="SuccessColor" Color="#28A745"/>
+        <SolidColorBrush x:Key="DangerColor" Color="#C8102E"/>
+        <!-- Matching Red -->
+        <SolidColorBrush x:Key="InfoColor" Color="#0E2240"/>
+        <!-- Navy Blue -->
+
+        <!-- Modern Card Style -->
+        <Style x:Key="CardStyle" TargetType="Border">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="10" ShadowDepth="2" Opacity="0.08"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Dashboard Button Style -->
+        <Style x:Key="DashboardButton" TargetType="Button">
+            <Setter Property="Height" Value="45"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="10" 
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="0.85"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="RenderTransform">
+                                    <Setter.Value>
+                                        <ScaleTransform ScaleX="0.97" ScaleY="0.97"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Modern ListBox Style -->
+        <Style x:Key="ModernListBox" TargetType="ListBox">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#DADCE0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+
+        <!-- Numeric TextBox Style -->
+        <Style x:Key="NumericTextBox" TargetType="TextBox">
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="15,0"/>
+            <Setter Property="BorderBrush" Value="#DADCE0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Background" Value="#F8F9FA"/>
+            <Setter Property="Foreground" Value="{StaticResource PrimaryColor}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Grid>
+                            <Border x:Name="border" 
+                                    Background="{TemplateBinding Background}" 
+                                    BorderBrush="{TemplateBinding BorderBrush}" 
+                                    BorderThickness="{TemplateBinding BorderThickness}" 
+                                    CornerRadius="10">
+                                <ScrollViewer x:Name="PART_ContentHost" Margin="15,0"/>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource SecondaryColor}"/>
+                                <Setter TargetName="border" Property="BorderThickness" Value="2"/>
+                                <Setter TargetName="border" Property="Background" Value="White"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#9AA0A6"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="30">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- ============================== -->
+        <!-- HEADER                        -->
+        <!-- ============================== -->
+        <Grid Grid.Row="0" Margin="0,0,0,25">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel>
+                <TextBlock Text="SmartBank Dashboard" 
+                           FontSize="32" 
+                           FontWeight="Bold" 
+                           Foreground="{StaticResource PrimaryColor}"/>
+                <TextBlock Text="Welcome back! Here's your financial overview" 
+                           FontSize="14" 
+                           Foreground="{StaticResource TextMuted}"
+                           Margin="0,5,0,0"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- ============================== -->
+        <!-- ACCOUNT CARDS                 -->
+        <!-- ============================== -->
+        <Grid Grid.Row="1" Margin="0,0,0,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Balance Card -->
+            <Border Grid.Column="0" 
+                    Style="{StaticResource CardStyle}" 
+                    Padding="20" 
+                    Margin="0,0,15,0">
+                <StackPanel>
+                    <TextBlock Text="💰 Total Balance" 
+                               Foreground="{StaticResource TextMuted}" 
+                               FontSize="12"
+                               FontWeight="SemiBold"/>
+                    <TextBlock x:Name="BalanceDisplay"
+                               FontSize="32" 
+                               FontWeight="Bold" 
+                               Foreground="#28A745"
+                               Margin="0,8,0,0"/>
+                    <TextBlock Text="↑ 2.5% from last month" 
+                               Foreground="#28A745" 
+                               FontSize="12"
+                               Margin="0,5,0,0"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Account Number Card -->
+            <Border Grid.Column="1" 
+                    Style="{StaticResource CardStyle}" 
+                    Padding="20" 
+                    Margin="7.5,0">
+                <StackPanel>
+                    <TextBlock Text="🏦 Account Number" 
+                               Foreground="{StaticResource TextMuted}" 
+                               FontSize="12"
+                               FontWeight="SemiBold"/>
+                    <TextBlock x:Name="AccountNumberDisplay"
+                               FontSize="20" 
+                               FontWeight="Bold" 
+                               Foreground="{StaticResource PrimaryColor}"
+                               Margin="0,8,0,0"/>
+                    <TextBlock Text="Active Account" 
+                               Foreground="#28A745" 
+                               FontSize="12"
+                               Margin="0,5,0,0"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Account Name Card -->
+            <Border Grid.Column="2" 
+                    Style="{StaticResource CardStyle}" 
+                    Padding="20" 
+                    Margin="15,0,0,0">
+                <StackPanel>
+                    <TextBlock Text="👤 Account Holder" 
+                               Foreground="{StaticResource TextMuted}" 
+                               FontSize="12"
+                               FontWeight="SemiBold"/>
+                    <TextBlock x:Name="AccountNameDisplay" 
+                               FontSize="20" 
+                               FontWeight="Bold" 
+                               Foreground="{StaticResource PrimaryColor}"
+                               Margin="0,8,0,0"/>
+                    <TextBlock Text="Verified ✓" 
+                               Foreground="#28A745" 
+                               FontSize="12"
+                               Margin="0,5,0,0"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <!-- ============================== -->
+        <!-- AMOUNT INPUT SECTION          -->
+        <!-- ============================== -->
+        <Border Grid.Row="2" 
+                Style="{StaticResource CardStyle}" 
+                Padding="20" 
+                Margin="0,0,0,20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,20,0">
+                    <TextBlock Text="💵" FontSize="24" Margin="0,0,10,0"/>
+                    <TextBlock Text="Amount:" 
+                               FontSize="16" 
+                               FontWeight="SemiBold" 
+                               Foreground="{StaticResource PrimaryColor}"
+                               VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <TextBox Grid.Column="1" 
+                         x:Name="AmountInput" 
+                         Style="{StaticResource NumericTextBox}"
+                         Text="0.00"
+                         Margin="0,2,15,-2"
+                         />
+
+                <!-- Quick Amount Buttons -->
+                <Button Grid.Column="2" 
+                        x:Name="QuickAmount20" 
+                        Style="{StaticResource DashboardButton}"
+                        Background="{DynamicResource SuccessColor}"
+                        Foreground="{StaticResource PrimaryColor}"
+                        Content="R20"
+                        Width="60"
+                        Height="40"
+                        Margin="3,7,5,3"
+                        Click="QuickAmount_Click1"
+                        Tag="10"/>
+
+                <Button Grid.Column="3" 
+                        x:Name="QuickAmount50" 
+                        Style="{StaticResource DashboardButton}"
+                        Background="{DynamicResource SuccessColor}"
+                        Foreground="{StaticResource PrimaryColor}"
+                        Content="R50"
+                        Width="60"
+                        Height="40"
+                        Margin="0,5,8,5"
+                        Click="QuickAmount_Click2"
+                        Tag="50"/>
+
+                <Button Grid.Column="4" 
+                        x:Name="QuickAmount100" 
+                        Style="{StaticResource DashboardButton}"
+                        Background="{DynamicResource SuccessColor}"
+                        Foreground="{StaticResource PrimaryColor}"
+                        Content="R100"
+                        Width="60"
+                        Height="40"
+                        Margin="0,0,8,0"
+                        Click="QuickAmount_Click3"
+                        Tag="100"/>
+
+                <Button Grid.Column="5" 
+                        x:Name="QuickAmount500" 
+                        Style="{StaticResource DashboardButton}"
+                        Background="{DynamicResource SuccessColor}"
+                        Foreground="{StaticResource PrimaryColor}"
+                        Content="R200"
+                        Width="60"
+                        Height="40"
+                        Click="QuickAmount_Click4"
+                        Tag="500"/>
+            </Grid>
+        </Border>
+
+        <!-- ============================== -->
+        <!-- RECIPIENT ACCOUNT (Transfer)  -->
+        <!-- ============================== -->
+        <Border Grid.Row="3" 
+                Style="{StaticResource CardStyle}" 
+                Padding="20" 
+                Margin="0,0,0,20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,20,0">
+                    <TextBlock Text="👥" FontSize="24" Margin="0,0,10,0"/>
+                    <TextBlock Text="Recipient Account (for Transfer):" 
+                               FontSize="16" 
+                               FontWeight="SemiBold" 
+                               Foreground="{StaticResource PrimaryColor}"
+                               VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <TextBox Grid.Column="1" 
+                         x:Name="RecipientAccountInput" 
+                         Style="{StaticResource NumericTextBox}"
+                         Margin="0,2,0,-2"/>
+            </Grid>
+        </Border>
+
+        <!-- ============================== -->
+        <!-- ACTION BUTTONS                -->
+        <!-- ============================== -->
+        <Grid Grid.Row="4" Margin="0,0,0,25">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" 
+                    x:Name="DepositButton" 
+                    Style="{StaticResource DashboardButton}"
+                    Background="{DynamicResource SecondaryColor}"
+                    Foreground="White"
+                    Content="💰 Deposit"
+                    Margin="0,0,10,0"
+                    Click="DepositButton_Click"/>
+
+            <Button Grid.Column="1" 
+                    x:Name="WithdrawButton" 
+                    Style="{StaticResource DashboardButton}"
+                    Background="{DynamicResource PrimaryColor}"
+                    Foreground="White"
+                    Content="💳 Withdraw"
+                    Margin="10,0,10,0"
+                    Click="WithdrawButton_Click"/>
+
+            <Button Grid.Column="2" 
+                    x:Name="TransferButton" 
+                    Style="{StaticResource DashboardButton}"
+                    Background="{StaticResource SecondaryColor}"
+                    Foreground="{StaticResource PrimaryColor}"
+                    Content="🔄 Transfer"
+                    Margin="10,0,10,0"
+                    Click="TransferButton_Click"/>
+
+            <Button Grid.Column="3" 
+                    x:Name="TranstactionButton" 
+                    Style="{StaticResource DashboardButton}"
+                    Background="{StaticResource PrimaryColor}"
+                    Foreground="White"
+                    Content="📊 Transaction History" 
+                    Margin="10,0,0,0"
+                    Click="TranstactionButton_Click"/>
+        </Grid>
+
+        <!-- ============================== -->
+        <!-- TRANSACTION HISTORY           -->
+        <!-- ============================== -->
+        <Grid Grid.Row="5" Margin="0,0,0,15">
+            <Border Style="{StaticResource CardStyle}" Padding="20">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Header -->
+                    <Grid Grid.Row="0" Margin="0,0,0,15">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="📊 Transaction History" 
+                                   FontSize="18" 
+                                   FontWeight="Bold" 
+                                   Foreground="{StaticResource PrimaryColor}"/>
+
+                        <Border Grid.Column="1" 
+                                Background="{StaticResource SecondaryColor}" 
+                                CornerRadius="15" 
+                                Padding="12,5">
+                            <TextBlock Text="Last 30 Days" 
+                                       Foreground="{StaticResource PrimaryColor}" 
+                                       FontSize="12" 
+                                       FontWeight="SemiBold"/>
+                        </Border>
+                    </Grid>
+
+                    <!-- Transaction List -->
+                    <ListBox Grid.Row="1" 
+                             x:Name="TransactionList" 
+                             Style="{StaticResource ModernListBox}"
+                             BorderThickness="0"
+                             Background="Transparent">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="#F0F0F0" 
+                                        BorderThickness="0,0,0,1" 
+                                        Padding="10,12">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Border Grid.Column="0"
+                                                Width="8"
+                                                Height="8"
+                                                CornerRadius="4"
+                                                Background="{StaticResource SecondaryColor}"
+                                                Margin="0,0,15,0"
+                                                VerticalAlignment="Center"/>
+
+                                        <TextBlock Grid.Column="1" 
+                                                   Text="{Binding}" 
+                                                   FontWeight="SemiBold" 
+                                                   FontSize="13"
+                                                   Foreground="{StaticResource PrimaryColor}"
+                                                   VerticalAlignment="Center"/>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!-- ============================== -->
+        <!-- FOOTER                        -->
+        <!-- ============================== -->
+        <Grid Grid.Row="6" Margin="0,5,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+           
+
+            <Button Grid.Column="1" 
+                    x:Name="LogoutButton" 
+                    Content="🚪 Logout" 
+                    Style="{StaticResource DashboardButton}"
+                    Background="#6C757D"
+                    Foreground="White"
+                    Width="120"
+                    Height="40"
+                    Click="LogoutButton_Click"/>
+        </Grid>
+    </Grid>
+</Window>
